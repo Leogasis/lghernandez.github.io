@@ -6,9 +6,9 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-minimal_mistakes_skin: "air"  # limpio y profesional
+minimal_mistakes_skin: air
 
-nav:
+navigation:
   - title: "Home"
     url: /
   - title: "Projects"
