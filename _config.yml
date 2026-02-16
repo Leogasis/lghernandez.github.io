@@ -7,3 +7,15 @@ plugins:
   - jekyll-seo-tag
 
 minimal_mistakes_skin: "air"  # limpio y profesional
+
+nav:
+  - title: "Home"
+    url: /
+  - title: "Projects"
+    url: /projects/
+  - title: "Teaching"
+    url: /teaching/
+  - title: "CV"
+    url: /assets/pdf/CV_Leonardo_Hernandez.pdf
+  - title: "Contact"
+    url: /contact/
