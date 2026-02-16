@@ -1,0 +1,9 @@
+title: Leonardo G. Hernández
+description: Industrial Engineer | Optimization, Analytics and AI
+theme: minimal-mistakes-jekyll
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+minimal_mistakes_skin: "air"  # limpio y profesional
