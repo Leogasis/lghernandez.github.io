@@ -3,33 +3,39 @@ layout: single
 title: "Teaching"
 permalink: /teaching/
 author_profile: true
+toc: true
+toc_label: "Courses"
 ---
 
-I teach courses at both the undergraduate and graduate levels, emphasizing practical application of theory through real-world case studies and projects.
+I teach a variety of graduate and undergraduate courses, emphasizing the practical application of theory through real-world case studies and projects.
 
-## Graduate Courses
+## Graduate Level
 
-### Advanced Optimization
-*   **Focus:** Linear, Integer, and Non-Linear Programming, Heuristics, Metaheuristics.
-*   **Tools:** Python (Gurobi, CPLEX), Julia.
-*   **Key Projects:** Supply Chain Network Design, Vehicle Routing Problems.
+**MSc in Logistics and Supply Chain Management**
+*   Supply Chain Design
+*   Distribution Strategies
+*   Procurement Management
+*   Research Seminar
 
-### Applied Data Analytics
-*   **Focus:** Data preprocessing, Exploratory Data Analysis, Predictive Modeling, Machine Learning.
-*   **Tools:** Python (Pandas, Scikit-learn), R.
-*   **Key Projects:** Industrial failure prediction, Demand forecasting.
+**MSc in Analytics and Digital Transformation**
+*   Machine Learning and Artificial Intelligence
+*   Simulation under Risk and Uncertainty
 
-## Undergraduate Courses
+**MSc in Industrial Engineering**
+*   Statistical Process Engineering
+*   Industrial Project Seminar
 
-### Operations Research I & II
-*   **Focus:** Deterministic and Stochastic Models, Queueing Theory, Markov Chains.
-*   **Tools:** Excel Solver, Python.
+## Undergraduate Level (Industrial Engineering)
 
-### Simulation Systems
-*   **Focus:** Discrete Event Simulation, Agent-Based Modeling.
-*   **Tools:** AnyLogic, Simio, Python (SimPy).
+*   Operations Research (Deterministic Models)
+*   Supply Chain Management
+*   Distribution and Warehousing Systems
+*   Engineering Economics
+*   Production Process Simulation
+*   Structured Programming
+*   Six Sigma Methodology
+*   Statistics and Design of Experiments
 
-## Resources & Materials
+## Teaching Philosophy
 
-*   [Course Syllabus - Optimization](/assets/pdf/syllabus_optimization.pdf)
-*   [Lecture Slides - Introduction to AI in Industry](/assets/slides/intro_ai_industry.pdf)
+My teaching methodology focuses on the integration of rigorous mathematical modeling with practical tools (Python, Gurobi, AnyLogic) to solve complex industrial problems. I encourage students to work on applied projects that have a direct impact on industry.

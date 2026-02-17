@@ -2,21 +2,21 @@
 layout: home
 author_profile: true
 header:
-  overlay_image: /assets/images/home-header.jpg # Placeholder, user should add image
+  overlay_image: /assets/images/home-header.jpg # Placeholder
   overlay_filter: 0.5
   caption: "Optimization | Analytics | AI"
-excerpt: "Industrial Engineer specialized in Optimization, Advanced Analytics, and AI applied to industrial systems."
+excerpt: "Industrial Engineer with a PhD in Systems Engineering and more than 15 years of experience in optimization, operations research, artificial intelligence and advanced analytics applied to industrial systems."
 ---
 
 ## About Me
 
-I am an **Industrial Engineer** with a PhD in **Systems Engineering**, dedicated to solving complex industrial problems through quantitative methods. My work bridges the gap between theoretical models and real-world application, focusing on:
+I am an **Industrial Engineer** with a PhD in **Systems Engineering** and more than 15 years of experience in optimization, operations research, artificial intelligence, and advanced analytics applied to industrial systems. My work combines **rigorous quantitative modeling with real-world industrial applications**, focusing on:
 
-*   **Optimization & Operations Research:** Mathematical modeling for logistics, production, and supply chain efficiency.
-*   **Artificial Intelligence applied to Industry:** Machine Learning and Deep Learning solutions for predictive maintenance, demand forecasting, and process control.
-*   **Simulation & Stochastic Systems:**  Discrete-event and agent-based simulation for decision-making under uncertainty.
+*   **Logistics & Supply Chain:** Optimization of distribution networks and inventory systems.
+*   **Simulation:** Stochastic modeling for decision-making under uncertainty.
+*   **Data-Driven Decisions:** Leveraging AI and machine learning for predictive analytics.
 
-My goal is to design **robust, scalable, and data-driven solutions** that drive operational excellence.
+I have proven experience in **applied research, graduate-level teaching, academic leadership, and industrial consulting**, with participation in funded projects, peer-reviewed publications, and technology transfer initiatives.
 
 ---
 
@@ -25,15 +25,23 @@ My goal is to design **robust, scalable, and data-driven solutions** that drive 
 <div class="feature__wrapper">
   <div class="feature__item">
     <h3><i class="fas fa-cogs"></i> Industrial Optimization</h3>
-    <p>Developing exact and heuristic algorithms for large-scale combinatorial problems in transportation and scheduling.</p>
+    <p>Operations Research, deterministic models, and exact/heuristic algorithms.</p>
   </div>
   <div class="feature__item">
-    <h3><i class="fas fa-brain"></i> Industrial AI</h3>
-    <p>Implementing data pipelines and ML models to extract actionable insights from industrial IoT and enterprise data.</p>
+    <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
+    <p>Applied AI for industry, predictive maintenance, and data analytics.</p>
   </div>
   <div class="feature__item">
-    <h3><i class="fas fa-chart-line"></i> Advanced Analytics</h3>
-    <p>Transforming raw data into strategic value through descriptive, diagnostic, predictive, and prescriptive analytics.</p>
+    <h3><i class="fas fa-truck"></i> Supply Chain & Logistics</h3>
+    <p>Transportation systems, distribution strategies, and inventory optimization.</p>
+  </div>
+  <div class="feature__item">
+    <h3><i class="fas fa-random"></i> Simulation</h3>
+    <p>Stochastic modeling, Monte Carlo, and Discrete Event Simulation.</p>
+  </div>
+  <div class="feature__item">
+    <h3><i class="fas fa-microchip"></i> Industry 4.0</h3>
+    <p>Process digitalization and data-driven decision support systems.</p>
   </div>
 </div>
 
@@ -41,9 +49,9 @@ My goal is to design **robust, scalable, and data-driven solutions** that drive 
 
 ## Current Roles
 
-*   **Full-Time Professor & Researcher** | Industrial Engineering Dept.
-*   **Graduate Program Coordinator** | Industrial Engineering & Analytics
-*   **Industrial Consultant** | Optimization & Al-Based Solutions
+*   **Full-Time Professor & Researcher** | Department of Industrial Engineering and Management, UANL
+*   **Graduate Program Coordinator** | MSc in Industrial Engineering & MSc in Analytics (FCQ–UANL)
+*   **Leader** | Academic Body "Design and Optimization of Productive Systems"
 
 ---
 

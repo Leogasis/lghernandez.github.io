@@ -3,25 +3,63 @@ layout: single
 title: "About Me"
 permalink: /about/
 author_profile: true
+toc: true
+toc_label: "Contents"
 ---
 
-I am an Industrial Engineer with a strong background in Systems Engineering, focusing on the intersection of **optimization, advanced analytics, and artificial intelligence**. My research and professional practice are driven by the need to solve complex decision-making problems in industrial and service systems.
+I am an Industrial Engineer with a PhD in Systems Engineering, specializing in the application of **optimization, simulation, and artificial intelligence** to solve complex industrial problems. My career spans over 15 years in academia and industry, bridging the gap between theoretical models and practical implementation.
 
-## Professional Background
+## Professional Experience
 
-I hold a PhD in Systems Engineering and have worked extensively in both academia and industry. My experience spans:
+### Full-Time Professor and Researcher – Industrial Engineering
+**Universidad Autónoma de Nuevo León (UANL) | 2016 – Present**
+*   Research and development of optimization, simulation, and AI-based models for industrial and service systems.
+*   **Leader** of the Academic Body "Design and Optimization of Productive Systems".
+*   Supervision of graduate theses with applied and publishable outcomes.
+*   Industrial consulting in logistics optimization, analytics, and digital transformation.
 
-*   **Operations Research:** Design and implementation of optimization algorithms for logistics, supply chain management, and production scheduling.
-*   **Data Science & AI:** Application of machine learning techniques for predictive modeling, anomaly detection, and process optimization.
-*   **Simulation:** Development of discrete-event and agent-based simulation models to analyze system behavior under uncertainty.
+### Graduate Program Coordinator
+**Graduate School of Management and Industrial Engineering, FCQ–UANL | May 2022 – February 2026**
+*   Coordinator for **MSc in Industrial Engineering** and **MSc in Analytics and Digital Business Transformation**.
+*   Curriculum design aligned with Industry 4.0, analytics, and AI trends.
+*   Academic quality assurance, faculty coordination, and resource management.
 
-## Philosophy
+### Adjunct Graduate Professor
+**Universidad Autónoma de Nuevo León | 2019 – Present**
+*   Teaching graduate-level courses in Logistics, Supply Chain Management, and Digital Transformation.
 
-I believe in rigorously applying quantitative methods to real-world problems. My approach combines:
-1.  **Deep Understanding:** Analyzing the underlying system dynamics.
-2.  **Robust Modeling:** Creating mathematical models that accurately reflect reality.
-3.  **Actionable Insights:** Delivering solutions that empower decision-makers.
+### Postdoctoral Researcher
+**Tecnológico de Monterrey, Mexico | 2015 – 2016**
 
-## Connect
+### Inventory Specialist
+**Aeroméxico | 2007 – 2009**
+*   Optimization and digitalization of spare parts inventory systems.
+*   Improvement of inventory accuracy and logistics processes.
+*   ERP system migration/implementation support.
 
-I am always open to collaboration on research projects or industrial consulting. Please feel free to [contact me](/contact/).
+---
+
+## Education
+
+*   **PhD in Engineering (Systems Engineering)**  
+    Universidad Autónoma de Nuevo León (UANL), Mexico | 2012 – 2015
+*   **MSc in Science (Systems Engineering)**  
+    Universidad Autónoma de Nuevo León (UANL), Mexico | 2009 – 2012
+*   **BSc in Industrial Engineering**  
+    Instituto Tecnológico Superior de Perote, Mexico | 2003 – 2008
+
+---
+
+## Honors and Distinctions
+
+*   **National Researcher System (SNI)**, Candidate Level
+*   **PRODEP** Desirable Profile Recognition
+*   **Teaching Performance Recognition** – UANL
+
+---
+
+## Professional Memberships
+
+*   Industrial Engineering and Operations Management Society (IEOM)
+*   Mexican Society of Operations Research
+*   Mexican Institute of Industrial and Systems Engineers

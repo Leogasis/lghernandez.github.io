@@ -3,17 +3,20 @@ layout: single
 title: "Publications"
 permalink: /publications/
 author_profile: true
+toc: true
+toc_label: "Type"
 ---
 
-## Journal Articles
+## Selected Journal Articles
 
-1.  **Hernández, L.G.**, et al. (2024). "A Hybrid Heuristic for the Multi-Depot Vehicle Routing Problem with Time Windows." *Computers & Operations Research*. [DOI LINK](#)
-2.  **Hernández, L.G.**, et al. (2023). "Predictive Maintenance in Manufacturing using Deep Learning: A Case Study." *Journal of Intelligent Manufacturing*. [DOI LINK](#)
+1.  **Ibarra-Rojas, O. J., Hernández-Landa, L. G., & Ozuna, L.** (2018). "The accessibility vehicle routing problem." *Journal of Cleaner Production*.
+2.  **Litvinchev, I., Ríos-Solís, Y., Özdemir, D., & Hernández-Landa, L. G.** (2014). "Multiperiod and stochastic formulations for a closed-loop supply chain." *Journal of Computer and Systems Sciences International*.
+3.  **Hernández-Landa, L. G., et al.** (2015). "Linear bus holding model for real-time traffic network control." *Springer*.
+4.  **Vargas-Moreno, A., Hernández-Landa, L. G., et al.** (2018). "Application of open Jackson networks for time and costs reduction."
+5.  **Hernández-Landa, L. G., & Mata-Martínez, R. E.** (2018). "Accurate solutions for real instances of the traveling salesman problem using Google Maps APIs."
 
-## Conference Proceedings
+## Research Projects
 
-1.  **Hernández, L.G.** (2023). "Optimizing Warehouse Operations using Agent-Based Simulation." *Proceedings of the Winter Simulation Conference*.
-
-## Technical Reports
-
-1.  "Optimization of Logistics Distribution Network for [Company Name]." (2022). Technical Report.
+*   **Principal Investigator:** "Exploratory Analysis of Industry 4.0 in Companies from Nuevo León" (Funded by SEP).
+*   **Principal Investigator:** "Optimization Methods for Passenger Transportation Systems" (Funded by PRODEP).
+*   **Principal Investigator:** "Accessibility Modeling in Distribution and Location Problems" (Funded by UANL).

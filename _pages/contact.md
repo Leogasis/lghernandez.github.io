@@ -7,13 +7,15 @@ author_profile: true
 
 I am available for academic collaboration and industrial consulting opportunities.
 
-**Email:** [email@example.com](mailto:email@example.com)
+**Email:** [your-email@example.com](mailto:your-email@example.com)
 
 **Office Location:**
-Department of Industrial Engineering
-Building A, Office 304
-[University Name]
-[City, Country]
+Department of Industrial Engineering and Management
+Faculty of Chemical Sciences
+Universidad Autónoma de Nuevo León (UANL)
+Monterrey, Nuevo León, Mexico
+
+**Office Hours:** By appointment
 
 **Social Media:**
 *   [LinkedIn](https://linkedin.com/in/yourprofile)

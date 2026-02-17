@@ -44,9 +44,10 @@ navigation:
       url: /contact/
 
 author:
-  name: "Leonardo G. Hernández"
-  bio: "Industrial Engineer | Optimization, Analytics & AI"
-  location: "City, Country" # Update with actual location if known or leave generic
+  name: "Leonardo G. Hernández Landa, PhD"
+  bio: "Industrial Engineer | Optimization | Artificial Intelligence"
+  avatar: "/assets/images/profile.png"
+  location: "Monterrey, Mexico"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
