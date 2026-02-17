@@ -28,20 +28,6 @@ defaults:
       author_profile: true
       share: true
 
-navigation:
-  main:
-    - title: "Home"
-      url: /
-    - title: "Projects"
-      url: /projects/
-    - title: "Teaching"
-      url: /teaching/
-    - title: "Publications"
-      url: /publications/
-    - title: "CV"
-      url: /assets/pdf/CV_Leonardo_Hernandez.pdf
-    - title: "Contact"
-      url: /contact/
 
 author:
   name: "Leonardo G. Hernández Landa, PhD"
