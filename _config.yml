@@ -1,22 +1,71 @@
 title: Leonardo G. Hernández
 description: Industrial Engineer | Optimization, Analytics and AI
 remote_theme: "mmistakes/minimal-mistakes"
+minimal_mistakes_skin: air
+
+locale: "en-US"
+url: "https://leogasis.github.io" # Verify this is the correct base URL
 
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-include-cache
 
-minimal_mistakes_skin: air
+defaults:
+  # _pages
+  - scope:
+      path: "_pages"
+      type: "pages"
+    values:
+      layout: "single"
+      author_profile: true
+  # _projects
+  - scope:
+      path: "_projects"
+      type: "projects"
+    values:
+      layout: "single"
+      author_profile: true
+      share: true
 
 navigation:
-  - title: "Home"
-    url: /
-  - title: "Projects"
-    url: /projects/
-  - title: "Teaching"
-    url: /teaching/
-  - title: "CV"
-    url: /assets/pdf/CV_Leonardo_Hernandez.pdf
-  - title: "Contact"
-    url: /contact/
+  main:
+    - title: "Home"
+      url: /
+    - title: "Projects"
+      url: /projects/
+    - title: "Teaching"
+      url: /teaching/
+    - title: "Publications"
+      url: /publications/
+    - title: "CV"
+      url: /assets/pdf/CV_Leonardo_Hernandez.pdf
+    - title: "Contact"
+      url: /contact/
+
+author:
+  name: "Leonardo G. Hernández"
+  bio: "Industrial Engineer | Optimization, Analytics & AI"
+  location: "City, Country" # Update with actual location if known or leave generic
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:your-email@example.com"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/leogasis"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/yourprofile"
+    - label: "Google Scholar"
+      icon: "fas fa-fw fa-graduation-cap"
+      url: "https://scholar.google.com"
+
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/leogasis"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/yourprofile"
