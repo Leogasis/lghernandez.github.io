@@ -7,8 +7,9 @@ author_profile: true
 
 Here is a selection of my work in **Industrial Optimization**, **Artificial Intelligence**, and **Simulation**. These projects demonstrate the application of advanced quantitative methods to solve real-world industrial challenges.
 
+{%- comment -%}
 {% include group-by-array collection=site.projects field="tags" %}
-
+{%- endcomment -%}
 ## Optimization & Operations Research
 {% for post in site.projects %}
   {% if post.tags contains "Optimization" %}
