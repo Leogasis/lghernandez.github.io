@@ -11,6 +11,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-include-cache
 
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+    
 defaults:
   # _pages
   - scope:
