@@ -1,354 +1,370 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  ChevronRight, 
-  ChevronDown, 
-  Info, 
-  AlertTriangle, 
-  Ship, 
-  Truck, 
-  CheckCircle, 
-  ArrowRight, 
-  Scale, 
-  FileText, 
-  BookOpen, 
-  UserCheck, 
-  Search,
-  Globe
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incoterms 2020 - Guía Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content { display: none; }
+        .tab-content.active { display: grid; }
+        .step-content { display: none; }
+        .step-content.active { display: flex; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 selection:bg-blue-100">
 
-const App = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [activeTab, setActiveTab] = useState('multimodal');
-
-  const incotermsMultimodal = [
-    { id: 'EXW', name: 'Ex Works', translation: 'En fábrica', risk: 'En las instalaciones del vendedor.', desc: 'El vendedor deja la mercancía lista en su fábrica. No carga ni despacha exportación.', error: 'Creer que es ideal para exportar; complica al comprador extranjero con trámites locales.', idea: 'Minimiza obligaciones del vendedor, maximiza problemas operativos.' },
-    { id: 'FCA', name: 'Free Carrier', translation: 'Libre transportista', risk: 'Al entregar al transportista designado.', desc: 'El vendedor despacha para exportación. Es el más versátil y recomendado.', error: 'No definir el punto exacto de entrega dentro del lugar designado.', idea: 'Ideal para contenedores y logística moderna.' },
-    { id: 'CPT', name: 'Carriage Paid To', translation: 'Transporte pagado hasta', risk: 'En origen, al entregar al primer transportista.', desc: 'El vendedor paga el flete hasta destino, pero el riesgo se transfiere en el primer punto.', error: 'Confundir el punto donde termina el costo con el punto donde termina el riesgo.', idea: 'El riesgo se transfiere mucho antes de que la mercancía llegue al destino final.' },
-    { id: 'CIP', name: 'Carriage & Insurance Paid', translation: 'Transporte y seguro pagado hasta', risk: 'En origen, al entregar al primer transportista.', desc: 'Igual que CPT, pero obliga al vendedor a contratar seguro de cobertura amplia (Cláusula A).', error: 'Contratar un seguro de cobertura mínima por error.', idea: 'Protección superior para el comprador en transporte multimodal.' },
-    { id: 'DAP', name: 'Delivered At Place', translation: 'Entregado en lugar', risk: 'En el punto de destino acordado.', desc: 'Vendedor asume todo hasta el destino (sin descargar). Comprador despacha importación.', error: 'No tener claro quién descarga la mercancía del camión/contenedor.', idea: 'Enfoque en la entrega física en un punto específico.' },
-    { id: 'DPU', name: 'Delivered at Place Unloaded', translation: 'Entregado y descargado en lugar', risk: 'Tras la descarga en el lugar de destino.', desc: 'Único término que obliga al vendedor a descargar la mercancía.', error: 'Elegir un lugar de entrega que no tiene infraestructura para la descarga.', idea: 'Máximo control de entrega física incluyendo la maniobra final.' },
-    { id: 'DDP', name: 'Delivered Duty Paid', translation: 'Entregado derechos pagados', risk: 'En destino, tras trámites de importación.', desc: 'Vendedor asume todos los costos e impuestos. Máxima responsabilidad.', error: 'Usarlo sin conocer las leyes fiscales del país de destino.', idea: 'Servicio "puerta a puerta" total, pero altamente riesgoso para el vendedor.' }
-  ];
-
-  const incotermsMaritime = [
-    { id: 'FAS', name: 'Free Alongside Ship', translation: 'Libre al costado del buque', risk: 'Al dejar la mercancía al costado del buque.', desc: 'Entrega en muelle de origen, despachada para exportación.', error: 'Usarlo para carga contenerizada (debería ser FCA).', idea: 'Específico para carga voluminosa o graneles.' },
-    { id: 'FOB', name: 'Free On Board', translation: 'Libre a bordo', risk: 'Cuando la mercancía está a bordo del buque.', desc: 'El vendedor carga la mercancía en el barco. Solo para carga suelta/granel.', error: 'El error más común: usarlo para contenedores.', idea: 'Término clásico del comercio marítimo tradicional.' },
-    { id: 'CFR', name: 'Cost and Freight', translation: 'Costo y flete', risk: 'En origen, al cargarse al buque.', desc: 'Vendedor paga flete hasta puerto de destino. Riesgo se transfiere al cargar en origen.', error: 'Pensar que el riesgo termina en el puerto de destino.', idea: 'Separación clara entre costo (hasta destino) y riesgo (en origen).' },
-    { id: 'CIF', name: 'Cost, Insurance & Freight', translation: 'Costo, seguro y flete', risk: 'En origen, al cargarse al buque.', desc: 'Similar a CFR, pero incluye seguro marítimo de cobertura mínima (Cláusula C).', error: 'Exigir cobertura amplia cuando el término solo obliga a la mínima.', idea: 'Estándar para materias primas y carga marítima convencional.' }
-  ];
-
-  const steps = [
-    { title: "Categoría", content: "Seleccionar según el modo de transporte: ¿Multimodal o Marítimo?" },
-    { title: "Aduana", content: "Evaluar la experiencia: ¿El vendedor puede despachar exportación? ¿E importación?" },
-    { title: "Punto Exacto", content: "Definir lugar de entrega y transferencia de riesgo con precisión milimétrica." },
-    { title: "Aranceles", content: "Gestionar el riesgo arancelario: ¿Quién paga los impuestos de entrada?" },
-    { title: "Seguros", content: "Determinar nivel de cobertura: ¿Cláusula A (CIP) o Cláusula C (CIF)?" },
-    { title: "Validación", content: "Redacción contractual final siguiendo la Regla de Oro." }
-  ];
-
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100">
-      {/* Hero Section */}
-      <header className="relative h-[60vh] flex items-center justify-center bg-slate-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-40">
-           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900"></div>
-           {/* Abstract Pattern */}
-           <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
+    <!-- Hero Section -->
+    <header class="relative h-[60vh] flex items-center justify-center bg-slate-900 overflow-hidden">
+        <div class="absolute inset-0 opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900"></div>
+            <div class="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
         </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl">
-          <div className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold mb-6 tracking-wide uppercase">
-            <Globe className="w-4 h-4" />
-            <span>Comercio Internacional</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-            Incoterms <span className="text-blue-400">2020</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
-            Marco Integral para la Gestión del Comercio Internacional. 
-            <span className="block italic mt-4 text-blue-300">"No son un contrato, son su complemento técnico-jurídico."</span>
-          </p>
-        </div>
-      </header>
-
-      {/* Intro & Nature Section */}
-      <section className="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-        <div className="space-y-6">
-          <div className="flex items-center space-x-3 text-blue-600">
-            <BookOpen className="w-6 h-6" />
-            <h2 className="text-2xl font-bold uppercase tracking-wider">01. Introducción y Origen</h2>
-          </div>
-          <p className="text-lg leading-relaxed text-slate-600">
-            Los Incoterms estandarizan la distribución de costos, riesgos y obligaciones logísticas. Creados por la <b>Cámara de Comercio Internacional (CCI)</b> en París (1919), su versión 2020 adapta las reglas a la evolución global.
-          </p>
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h3 className="font-bold mb-2 flex items-center text-slate-800">
-              <Scale className="w-5 h-5 mr-2 text-blue-500" /> Naturaleza Jurídica
-            </h3>
-            <p className="text-slate-600 text-sm italic">
-              Pertenecen al "Soft Law" o Lex Mercatoria. Su aplicación es voluntaria y no son impuestos por ningún gobierno, pero adquieren fuerza legal al incluirse en el contrato.
+        <div class="relative z-10 text-center px-6 max-w-4xl">
+            <div class="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold mb-6 tracking-wide uppercase">
+                <i class="fas fa-globe"></i>
+                <span>Comercio Internacional</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                Incoterms <span class="text-blue-400">2020</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
+                Marco Integral para la Gestión del Comercio Internacional. 
+                <span class="block italic mt-4 text-blue-300">"No son un contrato, son su complemento técnico-jurídico."</span>
             </p>
-          </div>
         </div>
-        <div className="bg-slate-900 text-white p-8 rounded-3xl flex flex-col justify-center">
-          <div className="flex items-center space-x-3 mb-6">
-            <AlertTriangle className="w-8 h-8 text-yellow-400" />
-            <h2 className="text-2xl font-bold">Mecanismos de Cumplimiento</h2>
-          </div>
-          <p className="mb-6 text-slate-300">
-            En caso de disputa, los Incoterms no regulan sanciones. La controversia se resuelve mediante:
-          </p>
-          <ul className="space-y-4">
-            <li className="flex items-start">
-              <div className="bg-blue-500/20 p-2 rounded-lg mr-4 mt-1"><CheckCircle className="w-4 h-4 text-blue-400" /></div>
-              <div>
-                <span className="font-bold block">Arbitraje Internacional</span>
-                <span className="text-sm text-slate-400">Corte Internacional de Arbitraje de la CCI. Expertos neutrales.</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <div className="bg-blue-500/20 p-2 rounded-lg mr-4 mt-1"><CheckCircle className="w-4 h-4 text-blue-400" /></div>
-              <div>
-                <span className="font-bold block">Tribunales Nacionales</span>
-                <span className="text-sm text-slate-400">Jueces analizan el contrato para determinar el riesgo basándose en jurisprudencia.</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </section>
+    </header>
 
-      {/* Regulated vs Not Section */}
-      <section className="bg-slate-100 py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-black mb-4 uppercase">Alcance Real</h2>
-            <p className="text-slate-500">¿Qué regulan y qué NO regulan estos términos?</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-green-600 font-bold text-xl mb-6 flex items-center">
-                <CheckCircle className="mr-2" /> Lo que SÍ regulan
-              </h3>
-              <div className="space-y-4">
-                {['Costos (Transporte, seguros, aduanas)', 'Riesgos (Punto exacto de transferencia)', 'Obligaciones documentales y logísticas'].map((item, i) => (
-                  <div key={i} className="flex items-center p-3 bg-green-50 rounded-xl">
-                    <span className="text-green-800 font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
+    <!-- Intro & Nature -->
+    <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="space-y-6">
+            <div class="flex items-center space-x-3 text-blue-600">
+                <i class="fas fa-book-open text-2xl"></i>
+                <h2 class="text-2xl font-bold uppercase tracking-wider">01. Introducción y Origen</h2>
             </div>
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-red-600 font-bold text-xl mb-6 flex items-center">
-                <AlertTriangle className="mr-2" /> Lo que NO regulan
-              </h3>
-              <div className="space-y-4">
-                {['Precio de la mercancía', 'Forma o plazo de pago', 'Transmisión de la propiedad', 'Penalizaciones por incumplimiento'].map((item, i) => (
-                  <div key={i} className="flex items-center p-3 bg-red-50 rounded-xl">
-                    <span className="text-red-800 font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
+            <p class="text-lg leading-relaxed text-slate-600">
+                Los Incoterms estandarizan la distribución de costos, riesgos y obligaciones logísticas. Creados por la <b>Cámara de Comercio Internacional (CCI)</b> en París (1919), su versión 2020 adapta las reglas a la evolución global.
+            </p>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="font-bold mb-2 flex items-center text-slate-800">
+                    <i class="fas fa-scale-balanced mr-2 text-blue-500"></i> Naturaleza Jurídica
+                </h3>
+                <p class="text-slate-600 text-sm italic">
+                    Pertenecen al "Soft Law" o Lex Mercatoria. Su aplicación es voluntaria y no son impuestos por ningún gobierno, pero adquieren fuerza legal al incluirse en el contrato.
+                </p>
             </div>
-          </div>
-          <div className="mt-12 bg-blue-600 text-white p-8 rounded-3xl flex items-center justify-between">
-            <div>
-              <h4 className="text-2xl font-bold mb-2">Regla de Oro para Redacción</h4>
-              <p className="font-mono text-blue-100">[Incoterm] + [Lugar exacto] + Incoterms 2020</p>
-            </div>
-            <div className="hidden md:block bg-blue-500 p-4 rounded-2xl">
-              <FileText className="w-12 h-12" />
-            </div>
-          </div>
         </div>
-      </section>
-
-      {/* Classification & Terms */}
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div>
-            <h2 className="text-4xl font-black text-slate-900 mb-2 uppercase">Catálogo de Términos</h2>
-            <p className="text-slate-500">Explora los 11 Incoterms según el modo de transporte.</p>
-          </div>
-          <div className="flex bg-slate-200 p-1 rounded-xl">
-            <button 
-              onClick={() => setActiveTab('multimodal')}
-              className={`flex items-center px-6 py-2 rounded-lg font-bold transition-all ${activeTab === 'multimodal' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-            >
-              <Truck className="w-4 h-4 mr-2" /> Multimodal
-            </button>
-            <button 
-              onClick={() => setActiveTab('maritime')}
-              className={`flex items-center px-6 py-2 rounded-lg font-bold transition-all ${activeTab === 'maritime' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-            >
-              <Ship className="w-4 h-4 mr-2" /> Marítimo
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(activeTab === 'multimodal' ? incotermsMultimodal : incotermsMaritime).map((inc) => (
-            <div key={inc.id} className="group bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-blue-400 transition-all shadow-sm hover:shadow-xl">
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <span className="text-3xl font-black text-blue-600">{inc.id}</span>
-                    <h3 className="font-bold text-slate-800 leading-tight">{inc.name}</h3>
-                  </div>
-                  <div className="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold uppercase">
-                    {inc.translation}
-                  </div>
-                </div>
-                <div className="space-y-4 mt-6">
-                  <div className="bg-blue-50 p-4 rounded-2xl">
-                    <p className="text-xs font-bold text-blue-600 uppercase mb-1">Transferencia del Riesgo</p>
-                    <p className="text-sm text-slate-700">{inc.risk}</p>
-                  </div>
-                  <p className="text-slate-600 text-sm leading-relaxed">{inc.desc}</p>
-                  
-                  {/* Expandable Alert */}
-                  <div className="pt-4 border-t border-slate-100">
-                    <div className="flex items-center text-amber-600 mb-1">
-                      <AlertTriangle className="w-4 h-4 mr-2" />
-                      <span className="text-xs font-bold uppercase">Error Frecuente</span>
+        <div class="bg-slate-900 text-white p-8 rounded-3xl flex flex-col justify-center">
+            <div class="flex items-center space-x-3 mb-6">
+                <i class="fas fa-triangle-exclamation text-3xl text-yellow-400"></i>
+                <h2 class="text-2xl font-bold">Mecanismos de Cumplimiento</h2>
+            </div>
+            <p class="mb-6 text-slate-300">
+                En caso de disputa, los Incoterms no regulan sanciones. La controversia se resuelve mediante:
+            </p>
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <div class="bg-blue-500/20 p-2 rounded-lg mr-4 mt-1"><i class="fas fa-check-circle text-blue-400 text-sm"></i></div>
+                    <div>
+                        <span class="font-bold block">Arbitraje Internacional</span>
+                        <span class="text-sm text-slate-400">Corte Internacional de Arbitraje de la CCI. Expertos neutrales.</span>
                     </div>
-                    <p className="text-xs text-slate-500 italic">{inc.error}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-slate-900 p-4 text-white text-center">
-                <span className="text-xs font-medium uppercase tracking-widest text-blue-400">Idea Clave</span>
-                <p className="text-xs font-bold mt-1">{inc.idea}</p>
-              </div>
-            </div>
-          ))}
+                </li>
+                <li class="flex items-start">
+                    <div class="bg-blue-500/20 p-2 rounded-lg mr-4 mt-1"><i class="fas fa-check-circle text-blue-400 text-sm"></i></div>
+                    <div>
+                        <span class="font-bold block">Tribunales Nacionales</span>
+                        <span class="text-sm text-slate-400">Jueces analizan el contrato para determinar el riesgo basándose en jurisprudencia.</span>
+                    </div>
+                </li>
+            </ul>
         </div>
-      </section>
+    </section>
 
-      {/* Strategy Section */}
-      <section className="bg-slate-900 text-white py-24 px-6 overflow-hidden">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
-            <h2 className="text-4xl font-black mb-8 leading-tight">Incoterms como <br/><span className="text-blue-400 italic">Herramienta Estratégica</span></h2>
-            <div className="space-y-6 relative z-10">
-              <div className="flex items-start">
-                <div className="bg-white/10 p-3 rounded-2xl mr-5">
-                  <UserCheck className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-xl mb-1 text-white">Según Experiencia</h4>
-                  <p className="text-slate-400">Vendedores novatos deberían usar <b>EXW</b> o <b>FCA</b>. Empresas maduras ganan competitividad con términos <b>D</b> (entrega en destino).</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="bg-white/10 p-3 rounded-2xl mr-5">
-                  <Globe className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-xl mb-1 text-white">Diferenciador Clave</h4>
-                  <p className="text-slate-400">Ofrecer soluciones "puerta a puerta" puede ser el factor que cierre una venta internacional frente a la competencia.</p>
-                </div>
-              </div>
+    <!-- Regulated vs Not -->
+    <section class="bg-slate-100 py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black mb-4 uppercase">Alcance Real</h2>
+                <p class="text-slate-500">¿Qué regulan y qué NO regulan estos términos?</p>
             </div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-md p-8 rounded-[40px] border border-white/10">
-            <h3 className="text-2xl font-bold mb-6 text-blue-300">Errores que cuestan dinero</h3>
-            <div className="space-y-4">
-              {[
-                "No especificar la versión 2020.",
-                "Usar FOB para contenedores (el error clásico).",
-                "Definir lugares de entrega ambiguos.",
-                "Elegir EXW o DDP sin capacidad operativa real.",
-                "Confundir niveles de seguro entre CIF y CIP."
-              ].map((err, i) => (
-                <div key={i} className="flex items-center space-x-3 group">
-                  <div className="w-2 h-2 rounded-full bg-red-500 group-hover:scale-150 transition-transform"></div>
-                  <span className="text-slate-300 group-hover:text-white transition-colors">{err}</span>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <h3 class="text-green-600 font-bold text-xl mb-6 flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i> Lo que SÍ regulan
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-green-50 rounded-xl text-green-800 font-medium">Costos (Transporte, seguros, aduanas)</div>
+                        <div class="p-3 bg-green-50 rounded-xl text-green-800 font-medium">Riesgos (Punto exacto de transferencia)</div>
+                        <div class="p-3 bg-green-50 rounded-xl text-green-800 font-medium">Obligaciones documentales y logísticas</div>
+                    </div>
                 </div>
-              ))}
+                <div class="bg-white p-8 rounded-3xl shadow-sm">
+                    <h3 class="text-red-600 font-bold text-xl mb-6 flex items-center">
+                        <i class="fas fa-circle-exclamation mr-2"></i> Lo que NO regulan
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-red-50 rounded-xl text-red-800 font-medium">Precio de la mercancía</div>
+                        <div class="p-3 bg-red-50 rounded-xl text-red-800 font-medium">Forma o plazo de pago</div>
+                        <div class="p-3 bg-red-50 rounded-xl text-red-800 font-medium">Transmisión de la propiedad</div>
+                        <div class="p-3 bg-red-50 rounded-xl text-red-800 font-medium">Penalizaciones por incumplimiento</div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="mt-12 bg-blue-600 text-white p-8 rounded-3xl flex items-center justify-between">
+                <div>
+                    <h4 className="text-2xl font-bold mb-2 text-xl font-bold">Regla de Oro para Redacción</h4>
+                    <p class="font-mono text-blue-100 mt-2">[Incoterm] + [Lugar exacto] + Incoterms 2020</p>
+                </div>
+                <div class="hidden md:block bg-blue-500 p-4 rounded-2xl">
+                    <i class="fas fa-file-signature text-4xl"></i>
+                </div>
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Methodology Wizard */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-5xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-black mb-4 uppercase">Metodología de Elección</h2>
-          <p className="text-slate-500">Un proceso lógico de 6 pasos para evitar decisiones intuitivas.</p>
+    <!-- Catalog Section -->
+    <section class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+                <h2 class="text-4xl font-black text-slate-900 mb-2 uppercase">Catálogo de Términos</h2>
+                <p class="text-slate-500">Explora los 11 Incoterms según el modo de transporte.</p>
+            </div>
+            <div class="flex bg-slate-200 p-1 rounded-xl">
+                <button onclick="switchTab('multimodal')" id="btn-multimodal" class="tab-btn flex items-center px-6 py-2 rounded-lg font-bold transition-all bg-white text-blue-600 shadow-sm">
+                    <i class="fas fa-truck mr-2"></i> Multimodal
+                </button>
+                <button onclick="switchTab('maritime')" id="btn-maritime" class="tab-btn flex items-center px-6 py-2 rounded-lg font-bold transition-all text-slate-500 hover:text-slate-700">
+                    <i class="fas fa-ship mr-2"></i> Marítimo
+                </button>
+            </div>
+        </div>
+
+        <!-- Multimodal Content -->
+        <div id="multimodal-content" class="tab-content active grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+            <!-- Content generated via JS -->
+        </div>
+
+        <!-- Maritime Content -->
+        <div id="maritime-content" class="tab-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+            <!-- Content generated via JS -->
+        </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section class="bg-slate-900 text-white py-24 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <div class="absolute -top-24 -left-24 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+                <h2 class="text-4xl font-black mb-8 leading-tight">Incoterms como <br/><span class="text-blue-400 italic">Herramienta Estratégica</span></h2>
+                <div class="space-y-6 relative z-10">
+                    <div class="flex items-start">
+                        <div class="bg-white/10 p-3 rounded-2xl mr-5 text-blue-400"><i class="fas fa-user-check text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-1 text-white">Según Experiencia</h4>
+                            <p class="text-slate-400">Vendedores novatos deberían usar <b>EXW</b> o <b>FCA</b>. Empresas maduras ganan competitividad con términos <b>D</b>.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-white/10 p-3 rounded-2xl mr-5 text-blue-400"><i class="fas fa-globe text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-1 text-white">Diferenciador Clave</h4>
+                            <p class="text-slate-400">Ofrecer soluciones "puerta a puerta" puede ser el factor que cierre una venta internacional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md p-8 rounded-[40px] border border-white/10">
+                <h3 class="text-2xl font-bold mb-6 text-blue-300">Errores que cuestan dinero</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center space-x-3"><div class="w-2 h-2 rounded-full bg-red-500"></div><span class="text-slate-300">No especificar la versión 2020.</span></li>
+                    <li class="flex items-center space-x-3"><div class="w-2 h-2 rounded-full bg-red-500"></div><span class="text-slate-300">Usar FOB para contenedores.</span></li>
+                    <li class="flex items-center space-x-3"><div class="w-2 h-2 rounded-full bg-red-500"></div><span class="text-slate-300">Definir lugares de entrega ambiguos.</span></li>
+                    <li class="flex items-center space-x-3"><div class="w-2 h-2 rounded-full bg-red-500"></div><span class="text-slate-300">Elegir EXW o DDP sin capacidad real.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Step Wizard -->
+    <section class="py-24 px-6 bg-white">
+        <div class="max-w-5xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-black mb-4 uppercase">Metodología de Elección</h2>
+            <p class="text-slate-500">Un proceso lógico de 6 pasos para evitar decisiones intuitivas.</p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-6 mb-12 gap-2">
-            {steps.map((step, i) => (
-              <button 
-                key={i}
-                onClick={() => setActiveStep(i)}
-                className={`p-3 rounded-xl transition-all border-b-4 text-xs font-black uppercase tracking-tighter ${activeStep === i ? 'bg-blue-600 text-white border-blue-800' : 'bg-slate-100 text-slate-400 border-slate-200 hover:bg-slate-200'}`}
-              >
-                Paso {i + 1}
-              </button>
-            ))}
-          </div>
-
-          <div className="bg-slate-50 p-10 rounded-[40px] border border-slate-100 min-h-[250px] flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
-            <div className="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 font-black text-2xl">
-              {activeStep + 1}
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-3 md:grid-cols-6 mb-12 gap-2" id="step-indicators">
+                <!-- Indicators via JS -->
             </div>
-            <h3 className="text-2xl font-black mb-4 text-slate-800 uppercase">{steps[activeStep].title}</h3>
-            <p className="text-xl text-slate-600 max-w-2xl leading-relaxed">{steps[activeStep].content}</p>
-          </div>
-          
-          <div className="flex justify-between mt-8">
-            <button 
-              disabled={activeStep === 0}
-              onClick={() => setActiveStep(prev => prev - 1)}
-              className="flex items-center px-6 py-2 rounded-full font-bold text-slate-500 hover:bg-slate-100 disabled:opacity-30"
-            >
-              <ChevronDown className="rotate-90 mr-2" /> Anterior
-            </button>
-            <button 
-              disabled={activeStep === steps.length - 1}
-              onClick={() => setActiveStep(prev => prev + 1)}
-              className="flex items-center px-6 py-2 rounded-full font-bold text-blue-600 hover:bg-blue-50 disabled:opacity-30"
-            >
-              Siguiente <ChevronDown className="-rotate-90 ml-2" />
-            </button>
-          </div>
+
+            <div id="wizard-container" class="bg-slate-50 p-10 rounded-[40px] border border-slate-100 min-h-[300px] flex flex-col items-center justify-center text-center fade-in">
+                <div id="step-number" class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 font-black text-2xl">1</div>
+                <h3 id="step-title" class="text-2xl font-black mb-4 text-slate-800 uppercase">Título del Paso</h3>
+                <p id="step-desc" class="text-xl text-slate-600 max-w-2xl leading-relaxed">Contenido del paso explicativo.</p>
+            </div>
+            
+            <div class="flex justify-between mt-8">
+                <button onclick="prevStep()" id="prev-btn" class="flex items-center px-6 py-2 rounded-full font-bold text-slate-500 hover:bg-slate-100 disabled:opacity-30">
+                    <i class="fas fa-chevron-left mr-2"></i> Anterior
+                </button>
+                <button onclick="nextStep()" id="next-btn" class="flex items-center px-6 py-2 rounded-full font-bold text-blue-600 hover:bg-blue-50 disabled:opacity-30">
+                    Siguiente <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Conclusion */}
-      <footer className="bg-slate-900 py-24 px-6 border-t border-slate-800 text-center">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-block p-4 bg-blue-600 rounded-3xl mb-8">
-            <Info className="w-10 h-10 text-white" />
-          </div>
-          <h2 className="text-4xl font-black text-white mb-8 uppercase tracking-wide">Conclusión Profesional</h2>
-          <div className="grid md:grid-cols-2 gap-8 text-left">
-            <div className="bg-white/5 p-8 rounded-3xl border border-white/10">
-              <p className="text-slate-300 leading-relaxed italic">
-                "Los Incoterms deben enseñarse no como una lista para memorizar, sino como una herramienta de decisión. Entender Incoterms no es saber siglas: es saber quién paga, quién arriesga y dónde empiezan los problemas."
-              </p>
+    <!-- Conclusion Footer -->
+    <footer class="bg-slate-900 py-24 px-6 border-t border-slate-800 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block p-4 bg-blue-600 rounded-3xl mb-8">
+                <i class="fas fa-info-circle text-4xl text-white"></i>
             </div>
-            <div className="bg-white/5 p-8 rounded-3xl border border-white/10 space-y-4">
-              <div className="flex items-center text-blue-400 font-bold">
-                <CheckCircle className="w-5 h-5 mr-3" /> Reducción de Riesgos
-              </div>
-              <div className="flex items-center text-blue-400 font-bold">
-                <CheckCircle className="w-5 h-5 mr-3" /> Eficiencia Operativa
-              </div>
-              <div className="flex items-center text-blue-400 font-bold">
-                <CheckCircle className="w-5 h-5 mr-3" /> Claridad Contractual
-              </div>
+            <h2 class="text-4xl font-black text-white mb-8 uppercase tracking-wide">Conclusión Profesional</h2>
+            <div class="grid md:grid-cols-2 gap-8 text-left">
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10 text-slate-300 italic">
+                    "Los Incoterms deben enseñarse no como una lista para memorizar, sino como una herramienta de decisión profesional."
+                </div>
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10 space-y-4">
+                    <div class="flex items-center text-blue-400 font-bold"><i class="fas fa-check-circle mr-3"></i> Reducción de Riesgos</div>
+                    <div class="flex items-center text-blue-400 font-bold"><i class="fas fa-check-circle mr-3"></i> Eficiencia Operativa</div>
+                    <div class="flex items-center text-blue-400 font-bold"><i class="fas fa-check-circle mr-3"></i> Claridad Contractual</div>
+                </div>
             </div>
-          </div>
-          <p className="mt-16 text-slate-500 text-sm font-medium tracking-widest uppercase">
-            © 2024 ICC - Guía Didáctica de Incoterms 2020
-          </p>
+            <p class="mt-16 text-slate-500 text-sm font-medium tracking-widest uppercase">© 2024 ICC - Guía Didáctica de Incoterms 2020</p>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </footer>
 
-export default App;
+    <script>
+        // Data Arrays
+        const incotermsMultimodal = [
+            { id: 'EXW', name: 'Ex Works', translation: 'En fábrica', risk: 'En las instalaciones del vendedor.', desc: 'El vendedor deja la mercancía lista en su fábrica. No carga ni despacha exportación.', error: 'Creer que es ideal para exportar; complica al comprador.', idea: 'Minimiza obligaciones del vendedor.' },
+            { id: 'FCA', name: 'Free Carrier', translation: 'Libre transportista', risk: 'Al entregar al transportista designado.', desc: 'Vendedor despacha para exportación. Es el más versátil.', error: 'No definir el punto exacto de entrega.', idea: 'Ideal para contenedores.' },
+            { id: 'CPT', name: 'Carriage Paid To', translation: 'Transporte pagado hasta', risk: 'En origen, al primer transportista.', desc: 'Vendedor paga flete hasta destino, pero el riesgo se transfiere antes.', error: 'Confundir punto de costo con punto de riesgo.', idea: 'Riesgo se transfiere en origen.' },
+            { id: 'CIP', name: 'Carriage & Insurance Paid', translation: 'Transporte y seguro pagado', risk: 'En origen, al primer transportista.', desc: 'Igual que CPT, pero obliga a seguro Cláusula A (amplia).', error: 'Contratar cobertura mínima por error.', idea: 'Protección superior para el comprador.' },
+            { id: 'DAP', name: 'Delivered At Place', translation: 'Entregado en lugar', risk: 'En el punto de destino acordado.', desc: 'Vendedor asume todo hasta destino (sin descargar).', error: 'Incertidumbre sobre quién descarga.', idea: 'Enfoque en entrega física.' },
+            { id: 'DPU', name: 'Delivered at Place Unloaded', translation: 'Entregado y descargado', risk: 'Tras la descarga en destino.', desc: 'Único término que obliga al vendedor a descargar.', error: 'Lugar sin infraestructura de descarga.', idea: 'Máximo control de entrega física.' },
+            { id: 'DDP', name: 'Delivered Duty Paid', translation: 'Entregado derechos pagados', risk: 'En destino, tras importación.', desc: 'Vendedor asume todos los costos e impuestos.', error: 'Desconocimiento fiscal del destino.', idea: 'Servicio puerta a puerta total.' }
+        ];
+
+        const incotermsMaritime = [
+            { id: 'FAS', name: 'Free Alongside Ship', translation: 'Al costado del buque', risk: 'Al costado del buque en muelle.', desc: 'Entrega en muelle de origen, despachada para exportación.', error: 'Usarlo para contenedores.', idea: 'Carga voluminosa o graneles.' },
+            { id: 'FOB', name: 'Free On Board', translation: 'Libre a bordo', risk: 'Cuando la mercancía está a bordo.', desc: 'Vendedor carga en el barco. Solo carga suelta/granel.', error: 'Usarlo para contenedores (debe ser FCA).', idea: 'Clásico del comercio tradicional.' },
+            { id: 'CFR', name: 'Cost and Freight', translation: 'Costo y flete', risk: 'En origen, al cargarse al buque.', desc: 'Vendedor paga flete hasta puerto destino.', error: 'Creer que el riesgo termina en destino.', idea: 'Costo hasta destino, riesgo en origen.' },
+            { id: 'CIF', name: 'Cost, Insurance & Freight', translation: 'Costo, seguro y flete', risk: 'En origen, al cargarse al buque.', desc: 'Similar a CFR, incluye seguro Cláusula C (mínima).', error: 'Exigir cobertura amplia (Cláusula A).', idea: 'Estándar para materias primas.' }
+        ];
+
+        const steps = [
+            { title: "Categoría", content: "Seleccionar según el modo de transporte: ¿Multimodal o Marítimo?" },
+            { title: "Aduana", content: "Evaluar la experiencia: ¿El vendedor puede despachar exportación? ¿E importación?" },
+            { title: "Punto Exacto", content: "Definir lugar de entrega y transferencia de riesgo con precisión milimétrica." },
+            { title: "Aranceles", content: "Gestionar el riesgo arancelario: ¿Quién paga los impuestos de entrada?" },
+            { title: "Seguros", content: "Determinar nivel de cobertura: ¿Cláusula A (CIP) o Cláusula C (CIF)?" },
+            { title: "Validación", content: "Redacción contractual final siguiendo la Regla de Oro." }
+        ];
+
+        let currentStep = 0;
+
+        // Render Functions
+        function renderIncoterms(data, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = data.map(inc => `
+                <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-blue-400 transition-all shadow-sm hover:shadow-xl">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-3xl font-black text-blue-600">${inc.id}</span>
+                                <h3 class="font-bold text-slate-800 leading-tight">${inc.name}</h3>
+                            </div>
+                            <div class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[10px] font-bold uppercase">
+                                ${inc.translation}
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-6">
+                            <div class="bg-blue-50 p-4 rounded-2xl">
+                                <p class="text-[10px] font-bold text-blue-600 uppercase mb-1">Transferencia del Riesgo</p>
+                                <p class="text-sm text-slate-700">${inc.risk}</p>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed">${inc.desc}</p>
+                            <div class="pt-4 border-t border-slate-100">
+                                <div class="flex items-center text-amber-600 mb-1">
+                                    <i class="fas fa-triangle-exclamation mr-2 text-xs"></i>
+                                    <span class="text-[10px] font-bold uppercase">Error Frecuente</span>
+                                </div>
+                                <p class="text-[11px] text-slate-500 italic">${inc.error}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-4 text-white text-center">
+                        <span class="text-[10px] font-medium uppercase tracking-widest text-blue-400">Idea Clave</span>
+                        <p class="text-xs font-bold mt-1">${inc.idea}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            btns.forEach(b => {
+                b.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                b.classList.add('text-slate-500');
+            });
+
+            if (type === 'multimodal') {
+                document.getElementById('multimodal-content').classList.add('active');
+                document.getElementById('btn-multimodal').classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+            } else {
+                document.getElementById('maritime-content').classList.add('active');
+                document.getElementById('btn-maritime').classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+            }
+        }
+
+        // Wizard Functions
+        function renderStepIndicators() {
+            const container = document.getElementById('step-indicators');
+            container.innerHTML = steps.map((s, i) => `
+                <button onclick="goToStep(${i})" class="step-dot p-3 rounded-xl transition-all border-b-4 text-[10px] font-black uppercase tracking-tighter 
+                ${currentStep === i ? 'bg-blue-600 text-white border-blue-800' : 'bg-slate-100 text-slate-400 border-slate-200'}">
+                    Paso ${i + 1}
+                </button>
+            `).join('');
+        }
+
+        function updateWizard() {
+            const container = document.getElementById('wizard-container');
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // Trigger reflow
+            container.classList.add('fade-in');
+
+            document.getElementById('step-number').innerText = currentStep + 1;
+            document.getElementById('step-title').innerText = steps[currentStep].title;
+            document.getElementById('step-desc').innerText = steps[currentStep].content;
+            
+            document.getElementById('prev-btn').disabled = currentStep === 0;
+            document.getElementById('next-btn').disabled = currentStep === steps.length - 1;
+            
+            renderStepIndicators();
+        }
+
+        function nextStep() { if (currentStep < steps.length - 1) { currentStep++; updateWizard(); } }
+        function prevStep() { if (currentStep > 0) { currentStep--; updateWizard(); } }
+        function goToStep(i) { currentStep = i; updateWizard(); }
+
+        // Initial Load
+        window.onload = () => {
+            renderIncoterms(incotermsMultimodal, 'multimodal-content');
+            renderIncoterms(incotermsMaritime, 'maritime-content');
+            updateWizard();
+        };
+    </script>
+</body>
+</html>
